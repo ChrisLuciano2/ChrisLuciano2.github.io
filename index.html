@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chris Luciano — Software Engineer</title>
-  <meta name="description" content="Chris Luciano is a CS student building AR systems, robotics simulations, and mobile apps. Open to internships and entry-level roles." />
-  <meta property="og:title" content="Chris Luciano — Software Engineer" />
-  <meta property="og:description" content="CS student building AR systems, robotics simulations, and mobile apps." />
+  <title>Chris Luciano</title>
+  <meta name="description" content="Chris Luciano — software engineer and CS student building AR systems, robotics simulations, and mobile apps." />
+  <meta property="og:title" content="Chris Luciano" />
+  <meta property="og:description" content="Software engineer and CS student building AR systems, robotics simulations, and mobile apps." />
   <meta property="og:url" content="https://ChrisLuciano2.github.io" />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,30 +14,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:           #070b12;
-      --surface:      #0e1525;
-      --surface2:     #131e30;
-      --border:       #1c2a3e;
-      --border-hi:    #2e4460;
-      --indigo:       #818cf8;
-      --cyan:         #22d3ee;
-      --green:        #34d399;
-      --text:         #eef2ff;
-      --muted:        #5d7499;
-      --muted2:       #8aa3bf;
-      --grad:         linear-gradient(135deg, #6366f1, #06b6d4);
-      --grad-text:    linear-gradient(135deg, #a5b4fc 0%, #67e8f9 50%, #a5b4fc 100%);
-      --fh:           'Space Grotesk', sans-serif;
-      --fb:           'Inter', sans-serif;
+      --bg:        #0a0a0c;
+      --surface:   #111116;
+      --surface2:  #16161c;
+      --border:    #202028;
+      --border-hi: #333340;
+      --blue:      #60a5fa;
+      --text:      #f0f0f5;
+      --muted:     #4a4a60;
+      --muted2:    #8080a0;
+      --fh: 'Space Grotesk', sans-serif;
+      --fb: 'Inter', sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     body {
-      background-color: var(--bg);
-      background-image: radial-gradient(rgba(129,140,248,0.065) 1px, transparent 1px);
-      background-size: 28px 28px;
+      background: var(--bg);
       color: var(--text);
       font-family: var(--fb);
       font-size: 15px;
@@ -45,142 +39,67 @@
       min-height: 100vh;
     }
 
-    a { color: var(--indigo); text-decoration: none; }
+    a { color: var(--blue); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    /* ─────────────── HERO ─────────────── */
+    /* ─── HERO ───────────────────────────── */
     .hero {
-      position: relative;
-      padding: 96px 24px 80px;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 900px 440px at 50% 0%,
-        rgba(99,102,241,0.16) 0%, transparent 68%);
-      pointer-events: none;
+      padding: 80px 32px 72px;
+      max-width: 880px;
+      margin: 0 auto;
     }
 
     .hero-name {
-      position: relative;
       font-family: var(--fh);
-      font-size: clamp(46px, 9vw, 78px);
+      font-size: clamp(42px, 8vw, 68px);
       font-weight: 700;
-      letter-spacing: -2.5px;
+      letter-spacing: -2px;
       line-height: 1;
-      background: var(--grad-text);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: shimmer 5s linear infinite;
-      margin-bottom: 18px;
-    }
-
-    @keyframes shimmer {
-      to { background-position: 200% center; }
+      color: var(--text);
+      margin-bottom: 16px;
     }
 
     .hero-tagline {
-      position: relative;
       font-size: 17px;
       color: var(--muted2);
-      margin-bottom: 28px;
+      margin-bottom: 32px;
+      max-width: 520px;
     }
 
-    .status-badge {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(52,211,153,0.07);
-      border: 1px solid rgba(52,211,153,0.22);
-      border-radius: 20px;
-      padding: 5px 16px;
-      font-size: 12.5px;
-      color: var(--green);
-      margin-bottom: 36px;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--green);
-      flex-shrink: 0;
-      animation: blink 2.5s ease-in-out infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.25; }
-    }
-
-    .hero-links {
-      position: relative;
+    .hero-contacts {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 30px;
+      align-items: center;
+      gap: 8px 0;
     }
 
-    .hero-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .hero-contacts > * {
       color: var(--muted2);
-      padding: 7px 15px;
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      background: var(--surface);
-      font-size: 13px;
-      transition: border-color 0.18s, color 0.18s, background 0.18s;
+      font-size: 13.5px;
+      padding: 0 16px;
+      border-right: 1px solid var(--border);
+      line-height: 1;
     }
 
-    .hero-link:hover {
-      border-color: var(--border-hi);
+    .hero-contacts > *:first-child { padding-left: 0; }
+    .hero-contacts > *:last-child  { border-right: none; }
+
+    .hero-contacts a {
+      color: var(--muted2);
+      transition: color 0.15s;
+    }
+
+    .hero-contacts a:hover {
       color: var(--text);
-      background: var(--surface2);
       text-decoration: none;
     }
 
-    .hero-cta {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--grad);
-      color: #fff;
-      font-family: var(--fh);
-      font-weight: 600;
-      font-size: 14px;
-      padding: 11px 30px;
-      border-radius: 8px;
-      letter-spacing: 0.01em;
-      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-    }
-
-    .hero-cta:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-      box-shadow: 0 10px 28px rgba(99,102,241,0.38);
-      text-decoration: none;
-      color: #fff;
-    }
-
-    /* ─────────────── NAV ──────────────── */
+    /* ─── NAV ────────────────────────────── */
     nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(7,11,18,0.88);
+      background: rgba(10,10,12,0.9);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
@@ -192,35 +111,34 @@
     }
 
     nav a {
-      color: var(--muted);
+      color: var(--muted2);
       font-size: 13px;
       font-weight: 500;
-      letter-spacing: 0.02em;
       padding: 6px 13px;
-      border-radius: 6px;
+      border-radius: 5px;
       transition: color 0.15s, background 0.15s;
     }
 
     nav a:hover {
       color: var(--text);
-      background: rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.05);
       text-decoration: none;
     }
 
-    /* ─────────────── LAYOUT ───────────── */
+    /* ─── MAIN ───────────────────────────── */
     main {
       max-width: 880px;
       margin: 0 auto;
-      padding: 64px 24px 100px;
+      padding: 56px 32px 100px;
     }
 
-    section { margin-bottom: 72px; }
+    section { margin-bottom: 64px; }
 
     .sec-head {
       display: flex;
       align-items: center;
       gap: 14px;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }
 
     .sec-head h2 {
@@ -229,7 +147,7 @@
       font-weight: 600;
       letter-spacing: 0.13em;
       text-transform: uppercase;
-      color: var(--indigo);
+      color: var(--blue);
       white-space: nowrap;
     }
 
@@ -239,27 +157,27 @@
       background: var(--border);
     }
 
-    /* ─────────────── ABOUT ────────────── */
+    /* ─── ABOUT ──────────────────────────── */
     .about-text {
       color: var(--muted2);
-      font-size: 16px;
+      font-size: 15.5px;
       line-height: 1.85;
-      max-width: 680px;
+      max-width: 660px;
     }
 
-    /* ─────────────── CARDS ────────────── */
+    /* ─── EXPERIENCE CARDS ───────────────── */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px 28px;
-      margin-bottom: 14px;
+      border-radius: 10px;
+      padding: 22px 26px;
+      margin-bottom: 12px;
       transition: border-color 0.2s, transform 0.2s;
     }
 
     .card:hover {
       border-color: var(--border-hi);
-      transform: translateY(-2px);
+      transform: translateY(-1px);
     }
 
     .card-row {
@@ -268,34 +186,24 @@
       align-items: flex-start;
       flex-wrap: wrap;
       gap: 6px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .card-title {
       font-family: var(--fh);
       font-weight: 600;
-      font-size: 15.5px;
+      font-size: 15px;
     }
 
-    .card-org {
-      color: var(--indigo);
-      font-size: 13.5px;
-      margin-top: 3px;
-    }
-
+    .card-org  { color: var(--blue); font-size: 13.5px; margin-top: 3px; }
     .card-meta { text-align: right; }
-
-    .card-date, .card-location {
-      color: var(--muted);
-      font-size: 12.5px;
-      white-space: nowrap;
-    }
+    .card-date, .card-location { color: var(--muted2); font-size: 12.5px; white-space: nowrap; }
 
     .card ul {
       padding-left: 16px;
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 6px;
     }
 
     .card li {
@@ -304,99 +212,65 @@
       line-height: 1.65;
     }
 
-    /* ─────────────── PROJECTS ─────────── */
-    .featured-card {
+    /* ─── PROJECTS ───────────────────────── */
+    .big-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 30px 32px;
-      margin-bottom: 14px;
-      position: relative;
-      overflow: hidden;
+      border-top: 2px solid var(--blue);
+      border-radius: 10px;
+      padding: 26px 28px;
+      margin-bottom: 12px;
       transition: border-color 0.2s, transform 0.2s;
     }
 
-    .featured-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--grad);
-    }
-
-    .featured-card:hover {
+    .big-card:hover {
       border-color: var(--border-hi);
-      transform: translateY(-2px);
+      border-top-color: var(--blue);
+      transform: translateY(-1px);
     }
 
-    .featured-label {
-      display: inline-block;
-      font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      opacity: 0.75;
+    .big-card h3 {
+      font-family: var(--fh);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
       margin-bottom: 10px;
     }
 
-    .featured-card h3 {
-      font-family: var(--fh);
-      font-size: 21px;
-      font-weight: 700;
-      letter-spacing: -0.4px;
-      margin-bottom: 12px;
-    }
-
-    .featured-card > p {
+    .big-card > p {
       color: var(--muted2);
-      font-size: 14.5px;
+      font-size: 14px;
       line-height: 1.75;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       max-width: 680px;
     }
 
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 12px;
     }
 
     .project-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 22px 24px;
+      border-radius: 10px;
+      padding: 20px 22px;
       display: flex;
       flex-direction: column;
-      position: relative;
-      overflow: hidden;
       transition: border-color 0.2s, transform 0.2s;
-    }
-
-    .project-card::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--grad);
-      opacity: 0;
-      transition: opacity 0.2s;
     }
 
     .project-card:hover {
       border-color: var(--border-hi);
-      transform: translateY(-3px);
+      transform: translateY(-2px);
     }
-
-    .project-card:hover::after { opacity: 1; }
 
     .project-card h3 {
       font-family: var(--fh);
-      font-size: 15.5px;
+      font-size: 15px;
       font-weight: 600;
-      letter-spacing: -0.2px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .project-card p {
@@ -404,162 +278,119 @@
       font-size: 13.5px;
       line-height: 1.68;
       flex: 1;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
-    .proj-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 16px;
-    }
-
-    .proj-tag {
-      font-size: 11px;
-      font-weight: 500;
-      padding: 2px 9px;
-      border-radius: 4px;
-      background: rgba(129,140,248,0.09);
-      color: var(--indigo);
-      border: 1px solid rgba(129,140,248,0.2);
+    .proj-meta {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-bottom: 12px;
+      letter-spacing: 0.01em;
     }
 
     .proj-links {
       display: flex;
       gap: 16px;
       font-size: 13px;
+      margin-top: auto;
     }
 
-    .proj-links a {
-      color: var(--muted2);
-      transition: color 0.15s;
-    }
+    .proj-links a { color: var(--muted2); transition: color 0.15s; }
+    .proj-links a:hover { color: var(--text); text-decoration: none; }
 
-    .proj-links a:hover {
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    /* ─────────────── SKILLS ───────────── */
-    .skill-group { margin-bottom: 22px; }
+    /* ─── SKILLS ─────────────────────────── */
+    .skill-group { margin-bottom: 20px; }
 
     .skill-label {
       font-size: 11.5px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.07em;
       color: var(--muted);
       margin-bottom: 10px;
     }
 
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; }
 
     .tag {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 5px 13px;
+      border-radius: 5px;
+      padding: 4px 12px;
       font-size: 13px;
       color: var(--muted2);
       transition: border-color 0.15s, color 0.15s;
     }
 
-    .tag:hover {
-      border-color: var(--border-hi);
-      color: var(--text);
-    }
+    .tag:hover { border-color: var(--border-hi); color: var(--text); }
 
-    /* ─────────────── CERTS ────────────── */
+    /* ─── CERTS ──────────────────────────── */
     .cert-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 8px;
-      padding: 18px 0;
+      padding: 16px 0;
       border-bottom: 1px solid var(--border);
     }
 
-    .cert-row:first-child  { padding-top: 0; }
-    .cert-row:last-child   { border-bottom: none; padding-bottom: 0; }
+    .cert-row:first-child { padding-top: 0; }
+    .cert-row:last-child  { border-bottom: none; padding-bottom: 0; }
 
-    .cert-name {
-      font-family: var(--fh);
-      font-weight: 500;
-      font-size: 14.5px;
-    }
-
-    .cert-issuer {
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 3px;
-    }
+    .cert-name   { font-family: var(--fh); font-weight: 500; font-size: 14px; }
+    .cert-issuer { font-size: 13px; color: var(--muted2); margin-top: 3px; }
 
     .cert-badge {
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.07em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 20px;
-      border: 1px solid;
+      padding: 3px 10px;
+      border-radius: 4px;
       white-space: nowrap;
     }
 
-    .cert-badge.issued {
-      color: var(--green);
-      border-color: rgba(52,211,153,0.3);
-      background: rgba(52,211,153,0.06);
-    }
+    .cert-badge.issued   { color: #4ade80; background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.25); }
+    .cert-badge.progress { color: var(--blue); background: rgba(96,165,250,0.08); border: 1px solid rgba(96,165,250,0.25); }
 
-    .cert-badge.progress {
-      color: var(--indigo);
-      border-color: rgba(129,140,248,0.3);
-      background: rgba(129,140,248,0.06);
-    }
-
-    /* ─────────────── FOOTER ───────────── */
+    /* ─── FOOTER ─────────────────────────── */
     footer {
       text-align: center;
-      padding: 36px 24px;
+      padding: 32px 24px;
       border-top: 1px solid var(--border);
       color: var(--muted);
       font-size: 13px;
     }
 
     footer a { color: var(--muted); }
-    footer a:hover { color: var(--indigo); text-decoration: none; }
+    footer a:hover { color: var(--text); text-decoration: none; }
 
-    /* ─────────────── RESPONSIVE ───────── */
-    @media (max-width: 640px) {
-      .hero-name   { letter-spacing: -1.5px; }
-      nav          { gap: 0; }
+    /* ─── RESPONSIVE ─────────────────────── */
+    @media (max-width: 600px) {
+      .hero { padding: 56px 20px 48px; }
+      main  { padding: 40px 20px 80px; }
+      .hero-name { letter-spacing: -1.5px; }
       .projects-grid { grid-template-columns: 1fr; }
-      .card-row    { flex-direction: column; }
-      .card-meta   { text-align: left; }
-      .featured-card { padding: 22px 20px; }
+      .card-row  { flex-direction: column; }
+      .card-meta { text-align: left; }
+      .hero-contacts > * { padding: 0 10px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ── Hero ───────────────────────────────────────── -->
 <div class="hero">
   <h1 class="hero-name">Chris Luciano</h1>
-  <p class="hero-tagline">Software Engineer &nbsp;·&nbsp; CS Student @ Grand Canyon University</p>
-  <div class="status-badge">
-    <span class="status-dot"></span>
-    Open to internships &amp; entry-level roles
+  <p class="hero-tagline">Software engineer building AR systems, robotics simulations, and mobile apps.</p>
+  <div class="hero-contacts">
+    <span>Anaheim, CA</span>
+    <a href="https://github.com/ChrisLuciano2" target="_blank">github.com/ChrisLuciano2</a>
+    <a href="mailto:christopher@luciano.com">christopher@luciano.com</a>
+    <a href="tel:7143284917">(714) 328-4917</a>
   </div>
-  <div class="hero-links">
-    <a class="hero-link" href="tel:7143284917">(714) 328-4917</a>
-    <a class="hero-link" href="https://github.com/ChrisLuciano2" target="_blank">github.com/ChrisLuciano2</a>
-    <a class="hero-link" href="mailto:christopher@luciano.com">christopher@luciano.com</a>
-  </div>
-  <a class="hero-cta" href="mailto:christopher@luciano.com">Get in touch</a>
 </div>
 
-<!-- ── Nav ────────────────────────────────────────── -->
 <nav>
   <a href="#about">About</a>
   <a href="#experience">Experience</a>
@@ -575,10 +406,11 @@
   <section id="about">
     <div class="sec-head"><h2>About</h2><div class="sec-line"></div></div>
     <p class="about-text">
-      CS student at Grand Canyon University building full-stack apps, browser-native AR systems, and robotics
-      simulations. Currently shipping a live AR deployment on campus as a Student Software Engineer. Google AI
-      Professional certified; IBM AI Engineering in progress. Seeking internship or entry-level roles in
-      software engineering, XR, or AI.
+      I'm a CS student at GCU focused on building software that works in the real world. Right now I'm
+      shipping a browser-native AR app for the GCU campus and a robotics simulation that lets students
+      write code once and run it unchanged on physical Jetson Nano hardware. Google AI Professional
+      certified, IBM AI Engineering in progress. Looking for internship or entry-level work in software
+      engineering, XR, or AI.
     </p>
   </section>
 
@@ -626,8 +458,7 @@
   <section id="projects">
     <div class="sec-head"><h2>Projects</h2><div class="sec-line"></div></div>
 
-    <div class="featured-card">
-      <span class="featured-label">Featured Project</span>
+    <div class="big-card">
       <h3>JETANK Robot Simulation Platform</h3>
       <p>
         Student code written for the physical Waveshare JETANK (NVIDIA Jetson Nano) runs against a Unity 3D
@@ -635,15 +466,7 @@
         generated robot model, TCP servers, a mocked YOLOv8 pipeline, and inverse kinematics matching real
         hardware arm positioning.
       </p>
-      <div class="proj-tags">
-        <span class="proj-tag">Unity 6</span>
-        <span class="proj-tag">C#</span>
-        <span class="proj-tag">Python</span>
-        <span class="proj-tag">TCP/IP</span>
-        <span class="proj-tag">YOLOv8</span>
-        <span class="proj-tag">Jetson Nano</span>
-        <span class="proj-tag">Inverse Kinematics</span>
-      </div>
+      <div class="proj-meta">Unity 6 &nbsp;·&nbsp; C# &nbsp;·&nbsp; Python &nbsp;·&nbsp; TCP/IP &nbsp;·&nbsp; YOLOv8 &nbsp;·&nbsp; Jetson Nano</div>
       <div class="proj-links">
         <a href="https://github.com/ChrisLuciano2/Jetank-Simulation" target="_blank">⬡ GitHub</a>
       </div>
@@ -658,12 +481,7 @@
           with Vercel, Supabase, and WebXR on a 5-person faculty team. Deploying to 500+ campus visitors as
           part of GCU's robotics and interactive media initiative.
         </p>
-        <div class="proj-tags">
-          <span class="proj-tag">WebXR</span>
-          <span class="proj-tag">Vercel</span>
-          <span class="proj-tag">Supabase</span>
-          <span class="proj-tag">JavaScript</span>
-        </div>
+        <div class="proj-meta">WebXR &nbsp;·&nbsp; Vercel &nbsp;·&nbsp; Supabase &nbsp;·&nbsp; JavaScript</div>
         <div class="proj-links">
           <a href="https://ar-summer-project.vercel.app" target="_blank">↗ Live Demo</a>
         </div>
@@ -676,12 +494,7 @@
           physics, rendering, and accelerometer input all written from scratch with a custom Canvas renderer.
           10 levels, 9 distinct obstacle types, ball customization, and a two-room final level.
         </p>
-        <div class="proj-tags">
-          <span class="proj-tag">Kotlin</span>
-          <span class="proj-tag">Android</span>
-          <span class="proj-tag">Canvas API</span>
-          <span class="proj-tag">Accelerometer</span>
-        </div>
+        <div class="proj-meta">Kotlin &nbsp;·&nbsp; Android &nbsp;·&nbsp; Canvas API &nbsp;·&nbsp; Accelerometer</div>
         <div class="proj-links">
           <a href="https://github.com/ChrisLuciano2/TiltMaze" target="_blank">⬡ GitHub</a>
         </div>
@@ -757,7 +570,7 @@
         <div>
           <div class="card-title">B.S. Computer Science – Game and Simulation Development</div>
           <div class="card-org">Grand Canyon University</div>
-          <div style="color:var(--muted);font-size:13px;margin-top:6px;line-height:1.6">
+          <div style="color:var(--muted2);font-size:13px;margin-top:6px;line-height:1.6">
             Computer Graphics &nbsp;·&nbsp; AI Programming &nbsp;·&nbsp; Game Engine Architecture &nbsp;·&nbsp; Data Structures &amp; Algorithms
           </div>
         </div>
