@@ -3,290 +3,563 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chris Luciano – Developer</title>
+  <title>Chris Luciano — Software Engineer</title>
+  <meta name="description" content="Chris Luciano is a CS student building AR systems, robotics simulations, and mobile apps. Open to internships and entry-level roles." />
+  <meta property="og:title" content="Chris Luciano — Software Engineer" />
+  <meta property="og:description" content="CS student building AR systems, robotics simulations, and mobile apps." />
+  <meta property="og:url" content="https://ChrisLuciano2.github.io" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0d1117;
-      --surface: #161b22;
-      --border: #30363d;
-      --accent: #58a6ff;
-      --accent2: #3fb950;
-      --text: #e6edf3;
-      --muted: #8b949e;
-      --tag-bg: #1f2937;
+      --bg:           #070b12;
+      --surface:      #0e1525;
+      --surface2:     #131e30;
+      --border:       #1c2a3e;
+      --border-hi:    #2e4460;
+      --indigo:       #818cf8;
+      --cyan:         #22d3ee;
+      --green:        #34d399;
+      --text:         #eef2ff;
+      --muted:        #5d7499;
+      --muted2:       #8aa3bf;
+      --grad:         linear-gradient(135deg, #6366f1, #06b6d4);
+      --grad-text:    linear-gradient(135deg, #a5b4fc 0%, #67e8f9 50%, #a5b4fc 100%);
+      --fh:           'Space Grotesk', sans-serif;
+      --fb:           'Inter', sans-serif;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
+      background-color: var(--bg);
+      background-image: radial-gradient(rgba(129,140,248,0.065) 1px, transparent 1px);
+      background-size: 28px 28px;
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: var(--fb);
       font-size: 15px;
-      line-height: 1.6;
+      line-height: 1.65;
+      min-height: 100vh;
     }
 
-    a { color: var(--accent); text-decoration: none; }
+    a { color: var(--indigo); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    /* ── Layout ── */
-    header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 48px 0 40px;
+    /* ─────────────── HERO ─────────────── */
+    .hero {
+      position: relative;
+      padding: 96px 24px 80px;
       text-align: center;
+      overflow: hidden;
     }
 
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 900px 440px at 50% 0%,
+        rgba(99,102,241,0.16) 0%, transparent 68%);
+      pointer-events: none;
+    }
+
+    .hero-name {
+      position: relative;
+      font-family: var(--fh);
+      font-size: clamp(46px, 9vw, 78px);
+      font-weight: 700;
+      letter-spacing: -2.5px;
+      line-height: 1;
+      background: var(--grad-text);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 5s linear infinite;
+      margin-bottom: 18px;
+    }
+
+    @keyframes shimmer {
+      to { background-position: 200% center; }
+    }
+
+    .hero-tagline {
+      position: relative;
+      font-size: 17px;
+      color: var(--muted2);
+      margin-bottom: 28px;
+    }
+
+    .status-badge {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(52,211,153,0.07);
+      border: 1px solid rgba(52,211,153,0.22);
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-size: 12.5px;
+      color: var(--green);
+      margin-bottom: 36px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+      animation: blink 2.5s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.25; }
+    }
+
+    .hero-links {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted2);
+      padding: 7px 15px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--surface);
+      font-size: 13px;
+      transition: border-color 0.18s, color 0.18s, background 0.18s;
+    }
+
+    .hero-link:hover {
+      border-color: var(--border-hi);
+      color: var(--text);
+      background: var(--surface2);
+      text-decoration: none;
+    }
+
+    .hero-cta {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--grad);
+      color: #fff;
+      font-family: var(--fh);
+      font-weight: 600;
+      font-size: 14px;
+      padding: 11px 30px;
+      border-radius: 8px;
+      letter-spacing: 0.01em;
+      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .hero-cta:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(99,102,241,0.38);
+      text-decoration: none;
+      color: #fff;
+    }
+
+    /* ─────────────── NAV ──────────────── */
     nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(22, 27, 34, 0.92);
-      backdrop-filter: blur(8px);
+      background: rgba(7,11,18,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: center;
-      gap: 32px;
-      padding: 12px 24px;
+      flex-wrap: wrap;
+      gap: 2px;
+      padding: 8px 24px;
     }
 
     nav a {
       color: var(--muted);
       font-size: 13px;
       font-weight: 500;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      transition: color 0.15s;
+      letter-spacing: 0.02em;
+      padding: 6px 13px;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
     }
-    nav a:hover { color: var(--text); text-decoration: none; }
 
+    nav a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+      text-decoration: none;
+    }
+
+    /* ─────────────── LAYOUT ───────────── */
     main {
-      max-width: 820px;
+      max-width: 880px;
       margin: 0 auto;
-      padding: 48px 24px 80px;
+      padding: 64px 24px 100px;
     }
 
-    section { margin-bottom: 56px; }
+    section { margin-bottom: 72px; }
 
-    h2 {
+    .sec-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .sec-head h2 {
+      font-family: var(--fh);
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
+      color: var(--indigo);
+      white-space: nowrap;
     }
 
-    /* ── Header ── */
-    .name {
-      font-size: clamp(28px, 5vw, 42px);
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      margin-bottom: 6px;
+    .sec-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
     }
 
-    .tagline {
+    /* ─────────────── ABOUT ────────────── */
+    .about-text {
+      color: var(--muted2);
       font-size: 16px;
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
-
-    .contact-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 16px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .contact-links span { display: flex; align-items: center; gap: 6px; }
-    .contact-links a { color: var(--muted); }
-    .contact-links a:hover { color: var(--accent); text-decoration: none; }
-
-    /* ── Summary ── */
-    .summary-text {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.8;
+      line-height: 1.85;
       max-width: 680px;
     }
 
-    /* ── Experience / Education cards ── */
+    /* ─────────────── CARDS ────────────── */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px 24px;
-      margin-bottom: 16px;
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 14px;
+      transition: border-color 0.2s, transform 0.2s;
     }
 
-    .card-header {
+    .card:hover {
+      border-color: var(--border-hi);
+      transform: translateY(-2px);
+    }
+
+    .card-row {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       flex-wrap: wrap;
-      gap: 4px;
-      margin-bottom: 4px;
+      gap: 6px;
+      margin-bottom: 14px;
     }
 
-    .card-title { font-weight: 600; font-size: 15px; }
-    .card-org { color: var(--accent); font-size: 14px; }
-    .card-date { color: var(--muted); font-size: 13px; white-space: nowrap; }
-    .card-location { color: var(--muted); font-size: 13px; }
+    .card-title {
+      font-family: var(--fh);
+      font-weight: 600;
+      font-size: 15.5px;
+    }
+
+    .card-org {
+      color: var(--indigo);
+      font-size: 13.5px;
+      margin-top: 3px;
+    }
+
+    .card-meta { text-align: right; }
+
+    .card-date, .card-location {
+      color: var(--muted);
+      font-size: 12.5px;
+      white-space: nowrap;
+    }
 
     .card ul {
-      margin-top: 12px;
-      padding-left: 18px;
+      padding-left: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
     }
 
     .card li {
-      color: var(--muted);
+      color: var(--muted2);
       font-size: 14px;
-      line-height: 1.7;
-      margin-bottom: 4px;
+      line-height: 1.65;
     }
 
-    /* ── Projects ── */
+    /* ─────────────── PROJECTS ─────────── */
+    .featured-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 30px 32px;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .featured-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--grad);
+    }
+
+    .featured-card:hover {
+      border-color: var(--border-hi);
+      transform: translateY(-2px);
+    }
+
+    .featured-label {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      opacity: 0.75;
+      margin-bottom: 10px;
+    }
+
+    .featured-card h3 {
+      font-family: var(--fh);
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin-bottom: 12px;
+    }
+
+    .featured-card > p {
+      color: var(--muted2);
+      font-size: 14.5px;
+      line-height: 1.75;
+      margin-bottom: 20px;
+      max-width: 680px;
+    }
+
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 14px;
     }
 
     .project-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px 22px;
+      border-radius: 12px;
+      padding: 22px 24px;
       display: flex;
       flex-direction: column;
-      transition: border-color 0.15s;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
     }
 
-    .project-card:hover { border-color: var(--accent); }
+    .project-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--grad);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .project-card:hover {
+      border-color: var(--border-hi);
+      transform: translateY(-3px);
+    }
+
+    .project-card:hover::after { opacity: 1; }
 
     .project-card h3 {
-      font-size: 15px;
+      font-family: var(--fh);
+      font-size: 15.5px;
       font-weight: 600;
-      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+      margin-bottom: 10px;
     }
 
     .project-card p {
-      color: var(--muted);
+      color: var(--muted2);
       font-size: 13.5px;
-      line-height: 1.65;
+      line-height: 1.68;
       flex: 1;
       margin-bottom: 16px;
     }
 
-    .project-links {
+    .proj-tags {
       display: flex;
-      gap: 12px;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .proj-tag {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 9px;
+      border-radius: 4px;
+      background: rgba(129,140,248,0.09);
+      color: var(--indigo);
+      border: 1px solid rgba(129,140,248,0.2);
+    }
+
+    .proj-links {
+      display: flex;
+      gap: 16px;
       font-size: 13px;
     }
 
-    .project-links a {
-      display: flex;
-      align-items: center;
-      gap: 5px;
+    .proj-links a {
+      color: var(--muted2);
+      transition: color 0.15s;
     }
 
-    /* ── Skills ── */
-    .skills-group { margin-bottom: 20px; }
+    .proj-links a:hover {
+      color: var(--text);
+      text-decoration: none;
+    }
 
-    .skills-label {
-      font-size: 12px;
+    /* ─────────────── SKILLS ───────────── */
+    .skill-group { margin-bottom: 22px; }
+
+    .skill-label {
+      font-size: 11.5px;
       font-weight: 600;
-      color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 8px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 10px;
     }
 
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
 
     .tag {
-      background: var(--tag-bg);
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 3px 10px;
-      font-size: 12.5px;
+      border-radius: 6px;
+      padding: 5px 13px;
+      font-size: 13px;
+      color: var(--muted2);
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .tag:hover {
+      border-color: var(--border-hi);
       color: var(--text);
     }
 
-    /* ── Certifications ── */
+    /* ─────────────── CERTS ────────────── */
     .cert-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 4px;
-      padding: 14px 0;
+      gap: 8px;
+      padding: 18px 0;
       border-bottom: 1px solid var(--border);
     }
-    .cert-row:first-child { padding-top: 0; }
-    .cert-row:last-child { border-bottom: none; padding-bottom: 0; }
 
-    .cert-name { font-weight: 500; font-size: 14px; }
-    .cert-issuer { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .cert-row:first-child  { padding-top: 0; }
+    .cert-row:last-child   { border-bottom: none; padding-bottom: 0; }
+
+    .cert-name {
+      font-family: var(--fh);
+      font-weight: 500;
+      font-size: 14.5px;
+    }
+
+    .cert-issuer {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
 
     .cert-badge {
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
-      padding: 3px 9px;
+      padding: 4px 12px;
       border-radius: 20px;
       border: 1px solid;
+      white-space: nowrap;
     }
 
     .cert-badge.issued {
-      color: var(--accent2);
-      border-color: var(--accent2);
+      color: var(--green);
+      border-color: rgba(52,211,153,0.3);
+      background: rgba(52,211,153,0.06);
     }
 
     .cert-badge.progress {
-      color: var(--accent);
-      border-color: var(--accent);
+      color: var(--indigo);
+      border-color: rgba(129,140,248,0.3);
+      background: rgba(129,140,248,0.06);
     }
 
-    /* ── Footer ── */
+    /* ─────────────── FOOTER ───────────── */
     footer {
       text-align: center;
-      padding: 32px 24px;
+      padding: 36px 24px;
       border-top: 1px solid var(--border);
       color: var(--muted);
       font-size: 13px;
     }
 
-    /* ── Responsive ── */
-    @media (max-width: 600px) {
-      nav { gap: 18px; }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--indigo); text-decoration: none; }
+
+    /* ─────────────── RESPONSIVE ───────── */
+    @media (max-width: 640px) {
+      .hero-name   { letter-spacing: -1.5px; }
+      nav          { gap: 0; }
       .projects-grid { grid-template-columns: 1fr; }
-      .card-header { flex-direction: column; }
+      .card-row    { flex-direction: column; }
+      .card-meta   { text-align: left; }
+      .featured-card { padding: 22px 20px; }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1 class="name">Chris Luciano</h1>
-  <p class="tagline">Software Engineer  ·  CS Student @ Grand Canyon University</p>
-  <div class="contact-links">
-    <span>📍 Anaheim, CA</span>
-    <span><a href="tel:7143284917">(714) 328-4917</a></span>
-    <span><a href="mailto:christopher@luciano.com">christopher@luciano.com</a></span>
-    <span><a href="https://github.com/christopherluciano25-gif" target="_blank">github.com/christopherluciano25-gif</a></span>
+<!-- ── Hero ───────────────────────────────────────── -->
+<div class="hero">
+  <h1 class="hero-name">Chris Luciano</h1>
+  <p class="hero-tagline">Software Engineer &nbsp;·&nbsp; CS Student @ Grand Canyon University</p>
+  <div class="status-badge">
+    <span class="status-dot"></span>
+    Open to internships &amp; entry-level roles
   </div>
-</header>
+  <div class="hero-links">
+    <a class="hero-link" href="tel:7143284917">(714) 328-4917</a>
+    <a class="hero-link" href="https://github.com/ChrisLuciano2" target="_blank">github.com/ChrisLuciano2</a>
+    <a class="hero-link" href="mailto:christopher@luciano.com">christopher@luciano.com</a>
+  </div>
+  <a class="hero-cta" href="mailto:christopher@luciano.com">Get in touch</a>
+</div>
 
+<!-- ── Nav ────────────────────────────────────────── -->
 <nav>
   <a href="#about">About</a>
   <a href="#experience">Experience</a>
@@ -300,8 +573,8 @@
 
   <!-- About -->
   <section id="about">
-    <h2>About</h2>
-    <p class="summary-text">
+    <div class="sec-head"><h2>About</h2><div class="sec-line"></div></div>
+    <p class="about-text">
       CS student at Grand Canyon University building full-stack apps, browser-native AR systems, and robotics
       simulations. Currently shipping a live AR deployment on campus as a Student Software Engineer. Google AI
       Professional certified; IBM AI Engineering in progress. Seeking internship or entry-level roles in
@@ -311,15 +584,15 @@
 
   <!-- Experience -->
   <section id="experience">
-    <h2>Experience</h2>
+    <div class="sec-head"><h2>Experience</h2><div class="sec-line"></div></div>
 
     <div class="card">
-      <div class="card-header">
+      <div class="card-row">
         <div>
           <div class="card-title">Student Software Engineer</div>
           <div class="card-org">Grand Canyon University</div>
         </div>
-        <div style="text-align:right">
+        <div class="card-meta">
           <div class="card-date">Apr 2026 – Present</div>
           <div class="card-location">Phoenix, AZ</div>
         </div>
@@ -332,12 +605,12 @@
     </div>
 
     <div class="card">
-      <div class="card-header">
+      <div class="card-row">
         <div>
           <div class="card-title">Teacher's Aide / Camp Counselor</div>
           <div class="card-org">St. Paul's Lutheran School</div>
         </div>
-        <div style="text-align:right">
+        <div class="card-meta">
           <div class="card-date">May 2022 – Aug 2022</div>
         </div>
       </div>
@@ -351,23 +624,32 @@
 
   <!-- Projects -->
   <section id="projects">
-    <h2>Projects</h2>
-    <div class="projects-grid">
+    <div class="sec-head"><h2>Projects</h2><div class="sec-line"></div></div>
 
-      <div class="project-card">
-        <h3>JETANK Robot Simulation Platform</h3>
-        <p>
-          Student code written for the physical Waveshare JETANK (NVIDIA Jetson Nano) runs against a Unity 3D
-          simulation without changes, then deploys back to real hardware unchanged. Includes a procedurally
-          generated robot model, TCP servers, mocked YOLOv8 pipeline, and inverse kinematics matching real
-          hardware arm positioning.
-        </p>
-        <div class="project-links">
-          <a href="https://github.com/ChrisLuciano2/Jetank-Simulation" target="_blank">
-            ⬡ GitHub
-          </a>
-        </div>
+    <div class="featured-card">
+      <span class="featured-label">Featured Project</span>
+      <h3>JETANK Robot Simulation Platform</h3>
+      <p>
+        Student code written for the physical Waveshare JETANK (NVIDIA Jetson Nano) runs against a Unity 3D
+        simulation without changes, then deploys back to real hardware unchanged. Includes a procedurally
+        generated robot model, TCP servers, a mocked YOLOv8 pipeline, and inverse kinematics matching real
+        hardware arm positioning.
+      </p>
+      <div class="proj-tags">
+        <span class="proj-tag">Unity 6</span>
+        <span class="proj-tag">C#</span>
+        <span class="proj-tag">Python</span>
+        <span class="proj-tag">TCP/IP</span>
+        <span class="proj-tag">YOLOv8</span>
+        <span class="proj-tag">Jetson Nano</span>
+        <span class="proj-tag">Inverse Kinematics</span>
       </div>
+      <div class="proj-links">
+        <a href="https://github.com/ChrisLuciano2/Jetank-Simulation" target="_blank">⬡ GitHub</a>
+      </div>
+    </div>
+
+    <div class="projects-grid">
 
       <div class="project-card">
         <h3>Campus AR Experience</h3>
@@ -376,7 +658,13 @@
           with Vercel, Supabase, and WebXR on a 5-person faculty team. Deploying to 500+ campus visitors as
           part of GCU's robotics and interactive media initiative.
         </p>
-        <div class="project-links">
+        <div class="proj-tags">
+          <span class="proj-tag">WebXR</span>
+          <span class="proj-tag">Vercel</span>
+          <span class="proj-tag">Supabase</span>
+          <span class="proj-tag">JavaScript</span>
+        </div>
+        <div class="proj-links">
           <a href="https://ar-summer-project.vercel.app" target="_blank">↗ Live Demo</a>
         </div>
       </div>
@@ -384,11 +672,17 @@
       <div class="project-card">
         <h3>TiltMaze</h3>
         <p>
-          Android mini golf game in Kotlin controlled entirely by tilting your phone. Built without a game
-          engine — physics, rendering, and accelerometer input all written from scratch using a custom Canvas
-          renderer. 10 levels, 9 distinct obstacle types, ball customization, and a two-room final level.
+          Android mini golf game in Kotlin controlled by tilting your phone. Built without a game engine;
+          physics, rendering, and accelerometer input all written from scratch with a custom Canvas renderer.
+          10 levels, 9 distinct obstacle types, ball customization, and a two-room final level.
         </p>
-        <div class="project-links">
+        <div class="proj-tags">
+          <span class="proj-tag">Kotlin</span>
+          <span class="proj-tag">Android</span>
+          <span class="proj-tag">Canvas API</span>
+          <span class="proj-tag">Accelerometer</span>
+        </div>
+        <div class="proj-links">
           <a href="https://github.com/ChrisLuciano2/TiltMaze" target="_blank">⬡ GitHub</a>
         </div>
       </div>
@@ -398,10 +692,10 @@
 
   <!-- Skills -->
   <section id="skills">
-    <h2>Skills</h2>
+    <div class="sec-head"><h2>Skills</h2><div class="sec-line"></div></div>
 
-    <div class="skills-group">
-      <div class="skills-label">Languages</div>
+    <div class="skill-group">
+      <div class="skill-label">Languages</div>
       <div class="tags">
         <span class="tag">C</span>
         <span class="tag">C++</span>
@@ -414,8 +708,8 @@
       </div>
     </div>
 
-    <div class="skills-group">
-      <div class="skills-label">Tools &amp; Frameworks</div>
+    <div class="skill-group">
+      <div class="skill-label">Tools &amp; Frameworks</div>
       <div class="tags">
         <span class="tag">Unity 6</span>
         <span class="tag">Vercel</span>
@@ -430,8 +724,8 @@
       </div>
     </div>
 
-    <div class="skills-group">
-      <div class="skills-label">Platforms &amp; Hardware</div>
+    <div class="skill-group">
+      <div class="skill-label">Platforms &amp; Hardware</div>
       <div class="tags">
         <span class="tag">NVIDIA Jetson Nano</span>
         <span class="tag">Waveshare JETANK</span>
@@ -439,8 +733,8 @@
       </div>
     </div>
 
-    <div class="skills-group">
-      <div class="skills-label">Concepts</div>
+    <div class="skill-group">
+      <div class="skill-label">Concepts</div>
       <div class="tags">
         <span class="tag">Augmented Reality</span>
         <span class="tag">Robotics Simulation</span>
@@ -456,33 +750,33 @@
 
   <!-- Education -->
   <section id="education">
-    <h2>Education</h2>
+    <div class="sec-head"><h2>Education</h2><div class="sec-line"></div></div>
 
     <div class="card">
-      <div class="card-header">
+      <div class="card-row">
         <div>
           <div class="card-title">B.S. Computer Science – Game and Simulation Development</div>
           <div class="card-org">Grand Canyon University</div>
-          <div style="color:var(--muted);font-size:13px;margin-top:4px">
-            Game Engine Architecture · AI Programming · Computer Graphics · Data Structures &amp; Algorithms
+          <div style="color:var(--muted);font-size:13px;margin-top:6px;line-height:1.6">
+            Computer Graphics &nbsp;·&nbsp; AI Programming &nbsp;·&nbsp; Game Engine Architecture &nbsp;·&nbsp; Data Structures &amp; Algorithms
           </div>
         </div>
-        <div style="text-align:right">
+        <div class="card-meta">
           <div class="card-date">Expected Dec 2026</div>
           <div class="card-location">Phoenix, AZ</div>
         </div>
       </div>
     </div>
-
   </section>
 
+  <!-- Certifications -->
   <section id="certifications">
-    <h2>Certifications</h2>
+    <div class="sec-head"><h2>Certifications</h2><div class="sec-line"></div></div>
 
     <div class="cert-row">
       <div>
         <div class="cert-name">Google AI Professional Certificate</div>
-        <div class="cert-issuer">Issued by Google · AI fundamentals, research, data analysis, content creation, app building</div>
+        <div class="cert-issuer">Issued by Google &nbsp;·&nbsp; AI fundamentals, research, data analysis, content creation, app building</div>
       </div>
       <span class="cert-badge issued">Issued 2026</span>
     </div>
@@ -490,7 +784,7 @@
     <div class="cert-row">
       <div>
         <div class="cert-name">IBM AI Engineering Professional Certificate</div>
-        <div class="cert-issuer">Issued by IBM via Coursera · Machine learning, deep learning, AI engineering</div>
+        <div class="cert-issuer">Issued by IBM via Coursera &nbsp;·&nbsp; Machine learning, deep learning, AI engineering</div>
       </div>
       <span class="cert-badge progress">In Progress</span>
     </div>
@@ -499,7 +793,7 @@
 </main>
 
 <footer>
-  <p>Chris Luciano · Anaheim, CA · <a href="mailto:christopher@luciano.com">christopher@luciano.com</a></p>
+  <p>Chris Luciano &nbsp;·&nbsp; Anaheim, CA &nbsp;·&nbsp; <a href="mailto:christopher@luciano.com">christopher@luciano.com</a></p>
 </footer>
 
 </body>
