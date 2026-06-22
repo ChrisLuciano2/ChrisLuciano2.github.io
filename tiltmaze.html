@@ -1248,42 +1248,55 @@ function loop() { update(); render(); requestAnimationFrame(loop); }
 let usingMotion = false;
 const MAX_TILT_G = 6;
 
-wrapper.addEventListener('mousemove', e => {
+// Mouse tilt — fires on the whole document so you don't need to stay over the phone.
+// Tilt magnitude is based on distance from the phone center, capped at 50% of the
+// phone's half-width for full deflection (so small movements still feel responsive).
+document.addEventListener('mousemove', e => {
   if (usingMotion) return;
-  const rect=phone.getBoundingClientRect();
-  const cx2=rect.left+rect.width/2, cy2=rect.top+rect.height/2;
-  const tx=(e.clientX-cx2)/(rect.width/2), ty=(e.clientY-cy2)/(rect.height/2);
-  // Clamp to ±1 then convert to G-force equivalent
-  accelX = -Math.max(-1,Math.min(1,tx)) * MAX_TILT_G;
-  accelY =  Math.max(-1,Math.min(1,ty)) * MAX_TILT_G;
-  // Phone tilt visual
-  phone.style.transform=`rotateX(${-ty*22}deg) rotateY(${tx*22}deg)`;
+  const rect = phone.getBoundingClientRect();
+  const cx = rect.left + rect.width  / 2;
+  const cy = rect.top  + rect.height / 2;
+  // 40% of phone half-dimension = full tilt, so you don't need extreme mouse movement
+  const sens = Math.min(rect.width, rect.height) * 0.4;
+  const tx = (e.clientX - cx) / sens;
+  const ty = (e.clientY - cy) / sens;
+  const ctX = Math.max(-1, Math.min(1, tx));
+  const ctY = Math.max(-1, Math.min(1, ty));
+  accelX = -ctX * MAX_TILT_G;
+  accelY =  ctY * MAX_TILT_G;
+  phone.style.transform = `rotateX(${-ctY * 20}deg) rotateY(${ctX * 20}deg)`;
 });
 
-wrapper.addEventListener('mouseleave', () => {
-  if (!usingMotion) { accelX=0; accelY=0; phone.style.transform=''; }
+// Only zero out tilt when mouse leaves the whole page
+document.addEventListener('mouseleave', () => {
+  if (!usingMotion) { accelX = 0; accelY = 0; phone.style.transform = ''; }
 });
 
-// Real accelerometer on mobile
-if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
-  // iOS 13+ requires permission
-  document.addEventListener('click', function askPerm(){
-    DeviceMotionEvent.requestPermission().then(res=>{
-      if(res==='granted') enableMotion();
-    }).catch(()=>{});
-    document.removeEventListener('click', askPerm);
-  }, {once:true});
-} else if (window.DeviceMotionEvent) {
-  enableMotion();
+// Real accelerometer on mobile — only treat events as real if values are non-zero.
+// On desktop Chrome, DeviceMotionEvent exists but fires zeros; we ignore those.
+function enableMotion() {
+  window.addEventListener('devicemotion', e => {
+    const g = e.accelerationIncludingGravity;
+    if (!g) return;
+    // Ignore desktop browsers that fire the event but report all zeros
+    if (g.x === 0 && g.y === 0 && g.z === 0) return;
+    usingMotion = true;
+    phone.style.transform = ''; // let physics drive feedback, not mouse
+    accelX = -(g.x || 0);
+    accelY =  (g.y || 0);
+  });
 }
 
-function enableMotion() {
-  window.addEventListener('devicemotion', e=>{
-    if(!e.accelerationIncludingGravity) return;
-    usingMotion=true;
-    accelX = -(e.accelerationIncludingGravity.x||0);
-    accelY =  (e.accelerationIncludingGravity.y||0);
-  });
+if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+  // iOS 13+ — request permission on first tap
+  document.addEventListener('click', function askPerm() {
+    DeviceMotionEvent.requestPermission().then(res => {
+      if (res === 'granted') enableMotion();
+    }).catch(() => {});
+    document.removeEventListener('click', askPerm);
+  }, { once: true });
+} else if (window.DeviceMotionEvent) {
+  enableMotion();
 }
 
 // Click / tap
