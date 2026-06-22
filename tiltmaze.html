@@ -1278,24 +1278,31 @@ function enableMotion() {
   window.addEventListener('devicemotion', e => {
     const g = e.accelerationIncludingGravity;
     if (!g) return;
-    // Ignore desktop browsers that fire the event but report all zeros
-    if (g.x === 0 && g.y === 0 && g.z === 0) return;
+    // Require meaningful X or Y tilt — a flat desktop reports g.z≈9.81 with x=y=0,
+    // which would permanently block the mouse handler.
+    if (Math.abs(g.x) < 0.3 && Math.abs(g.y) < 0.3) return;
     usingMotion = true;
-    phone.style.transform = ''; // let physics drive feedback, not mouse
+    phone.style.transform = '';
     accelX = -(g.x || 0);
     accelY =  (g.y || 0);
   });
 }
 
+// Only enable DeviceMotion on touch-capable devices (phones/tablets).
+// Desktop Chrome defines window.DeviceMotionEvent but has no real sensor.
+const isTouch = navigator.maxTouchPoints > 0 || 'ontouchstart' in window;
+
 if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
   // iOS 13+ — request permission on first tap
-  document.addEventListener('click', function askPerm() {
-    DeviceMotionEvent.requestPermission().then(res => {
-      if (res === 'granted') enableMotion();
-    }).catch(() => {});
-    document.removeEventListener('click', askPerm);
-  }, { once: true });
-} else if (window.DeviceMotionEvent) {
+  if (isTouch) {
+    document.addEventListener('click', function askPerm() {
+      DeviceMotionEvent.requestPermission().then(res => {
+        if (res === 'granted') enableMotion();
+      }).catch(() => {});
+      document.removeEventListener('click', askPerm);
+    }, { once: true });
+  }
+} else if (window.DeviceMotionEvent && isTouch) {
   enableMotion();
 }
 
