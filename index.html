@@ -11,20 +11,20 @@
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Figtree:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:        #0a0a0c;
-      --surface:   #111116;
-      --surface2:  #16161c;
-      --border:    #202028;
-      --border-hi: #333340;
-      --blue:      #60a5fa;
-      --text:      #f0f0f5;
-      --muted:     #4a4a60;
-      --muted2:    #8080a0;
-      --fh: 'Space Grotesk', sans-serif;
-      --fb: 'Inter', sans-serif;
+      --bg:       #07090f;
+      --surface:  #0d1018;
+      --surface2: #131720;
+      --border:   #1c2030;
+      --border-hi:#2a3048;
+      --blue:     #5a7ef8;
+      --text:     #eeeeff;
+      --muted:    #40445a;
+      --muted2:   #7880a2;
+      --fh: 'Bricolage Grotesque', system-ui, sans-serif;
+      --fb: 'Figtree', system-ui, sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -42,64 +42,110 @@
     a { color: var(--blue); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    /* ─── HERO ───────────────────────────── */
+    /* ── HERO ──────────────────────────────────── */
     .hero {
-      padding: 80px 32px 72px;
-      max-width: 880px;
-      margin: 0 auto;
+      position: relative;
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 40px 64px;
+      overflow: hidden;
+    }
+
+    #particle-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      cursor: crosshair;
+    }
+
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 40%,
+        rgba(7,9,15,0.6) 70%,
+        rgba(7,9,15,0.92) 100%
+      );
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 840px;
     }
 
     .hero-name {
       font-family: var(--fh);
-      font-size: clamp(42px, 8vw, 68px);
+      font-size: clamp(48px, 9vw, 80px);
       font-weight: 700;
-      letter-spacing: -2px;
+      letter-spacing: -2.5px;
       line-height: 1;
       color: var(--text);
       margin-bottom: 16px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.7s ease 0.4s, transform 0.7s ease 0.4s;
+      text-wrap: balance;
     }
 
     .hero-tagline {
+      font-family: var(--fb);
       font-size: 17px;
       color: var(--muted2);
-      margin-bottom: 32px;
-      max-width: 520px;
+      margin-bottom: 28px;
+      max-width: 500px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.6s ease 0.7s, transform 0.6s ease 0.7s;
     }
 
     .hero-contacts {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 8px 0;
+      gap: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease 1s;
     }
 
     .hero-contacts > * {
-      color: var(--muted2);
-      font-size: 13.5px;
+      color: var(--muted);
+      font-size: 13px;
       padding: 0 16px;
       border-right: 1px solid var(--border);
       line-height: 1;
+      transition: color 0.15s;
     }
 
     .hero-contacts > *:first-child { padding-left: 0; }
     .hero-contacts > *:last-child  { border-right: none; }
+    .hero-contacts a:hover { color: var(--text); text-decoration: none; }
 
-    .hero-contacts a {
-      color: var(--muted2);
-      transition: color 0.15s;
+    .hero-loaded .hero-name,
+    .hero-loaded .hero-tagline { opacity: 1; transform: none; }
+    .hero-loaded .hero-contacts { opacity: 1; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-name, .hero-tagline, .hero-contacts {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
     }
 
-    .hero-contacts a:hover {
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    /* ─── NAV ────────────────────────────── */
+    /* ── NAV ───────────────────────────────────── */
     nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(10,10,12,0.9);
+      background: rgba(7,9,15,0.9);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
@@ -125,47 +171,35 @@
       text-decoration: none;
     }
 
-    /* ─── MAIN ───────────────────────────── */
+    /* ── MAIN ──────────────────────────────────── */
     main {
-      max-width: 880px;
+      max-width: 860px;
       margin: 0 auto;
       padding: 56px 32px 100px;
     }
 
     section { margin-bottom: 64px; }
 
-    .sec-head {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 28px;
-    }
-
-    .sec-head h2 {
+    section h2 {
       font-family: var(--fh);
-      font-size: 11px;
+      font-size: 15px;
       font-weight: 600;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: var(--blue);
-      white-space: nowrap;
+      color: var(--muted2);
+      letter-spacing: 0;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .sec-line {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* ─── ABOUT ──────────────────────────── */
+    /* ── ABOUT ─────────────────────────────────── */
     .about-text {
       color: var(--muted2);
-      font-size: 15.5px;
+      font-size: 16px;
       line-height: 1.85;
       max-width: 660px;
     }
 
-    /* ─── EXPERIENCE CARDS ───────────────── */
+    /* ── CARDS ─────────────────────────────────── */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -189,14 +223,9 @@
       margin-bottom: 12px;
     }
 
-    .card-title {
-      font-family: var(--fh);
-      font-weight: 600;
-      font-size: 15px;
-    }
-
-    .card-org  { color: var(--blue); font-size: 13.5px; margin-top: 3px; }
-    .card-meta { text-align: right; }
+    .card-title  { font-family: var(--fh); font-weight: 600; font-size: 15px; }
+    .card-org    { color: var(--blue); font-size: 13.5px; margin-top: 3px; }
+    .card-meta   { text-align: right; }
     .card-date, .card-location { color: var(--muted2); font-size: 12.5px; white-space: nowrap; }
 
     .card ul {
@@ -206,13 +235,9 @@
       gap: 6px;
     }
 
-    .card li {
-      color: var(--muted2);
-      font-size: 14px;
-      line-height: 1.65;
-    }
+    .card li { color: var(--muted2); font-size: 14px; line-height: 1.65; }
 
-    /* ─── PROJECTS ───────────────────────── */
+    /* ── PROJECTS ──────────────────────────────── */
     .big-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -241,7 +266,7 @@
       color: var(--muted2);
       font-size: 14px;
       line-height: 1.75;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       max-width: 680px;
     }
 
@@ -285,27 +310,19 @@
       font-size: 11.5px;
       color: var(--muted);
       margin-bottom: 12px;
-      letter-spacing: 0.01em;
     }
 
-    .proj-links {
-      display: flex;
-      gap: 16px;
-      font-size: 13px;
-      margin-top: auto;
-    }
-
+    .proj-links { display: flex; gap: 16px; font-size: 13px; margin-top: auto; }
     .proj-links a { color: var(--muted2); transition: color 0.15s; }
     .proj-links a:hover { color: var(--text); text-decoration: none; }
 
-    /* ─── SKILLS ─────────────────────────── */
+    /* ── SKILLS ────────────────────────────────── */
     .skill-group { margin-bottom: 20px; }
 
     .skill-label {
       font-size: 11.5px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
+      font-weight: 500;
+      letter-spacing: 0.04em;
       color: var(--muted);
       margin-bottom: 10px;
     }
@@ -324,7 +341,7 @@
 
     .tag:hover { border-color: var(--border-hi); color: var(--text); }
 
-    /* ─── CERTS ──────────────────────────── */
+    /* ── CERTS ─────────────────────────────────── */
     .cert-row {
       display: flex;
       justify-content: space-between;
@@ -351,10 +368,10 @@
       white-space: nowrap;
     }
 
-    .cert-badge.issued   { color: #4ade80; background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.25); }
-    .cert-badge.progress { color: var(--blue); background: rgba(96,165,250,0.08); border: 1px solid rgba(96,165,250,0.25); }
+    .cert-badge.issued   { color: #4ade80; background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.22); }
+    .cert-badge.progress { color: var(--blue); background: rgba(90,126,248,0.08); border: 1px solid rgba(90,126,248,0.22); }
 
-    /* ─── FOOTER ─────────────────────────── */
+    /* ── FOOTER ────────────────────────────────── */
     footer {
       text-align: center;
       padding: 32px 24px;
@@ -366,11 +383,11 @@
     footer a { color: var(--muted); }
     footer a:hover { color: var(--text); text-decoration: none; }
 
-    /* ─── RESPONSIVE ─────────────────────── */
-    @media (max-width: 600px) {
-      .hero { padding: 56px 20px 48px; }
-      main  { padding: 40px 20px 80px; }
+    /* ── RESPONSIVE ────────────────────────────── */
+    @media (max-width: 640px) {
+      .hero { padding: 0 24px 48px; min-height: 70vh; }
       .hero-name { letter-spacing: -1.5px; }
+      main { padding: 40px 20px 80px; }
       .projects-grid { grid-template-columns: 1fr; }
       .card-row  { flex-direction: column; }
       .card-meta { text-align: left; }
@@ -380,17 +397,23 @@
 </head>
 <body>
 
-<div class="hero">
-  <h1 class="hero-name">Chris Luciano</h1>
-  <p class="hero-tagline">Software engineer building AR systems, robotics simulations, and mobile apps.</p>
-  <div class="hero-contacts">
-    <span>Anaheim, CA</span>
-    <a href="https://github.com/ChrisLuciano2" target="_blank">github.com/ChrisLuciano2</a>
-    <a href="mailto:christopher@luciano.com">christopher@luciano.com</a>
-    <a href="tel:7143284917">(714) 328-4917</a>
+<!-- ── Hero ─────────────────────────────────────── -->
+<div class="hero" id="hero">
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <h1 class="hero-name">Chris Luciano</h1>
+    <p class="hero-tagline">Software engineer building AR systems, robotics simulations, and mobile apps.</p>
+    <div class="hero-contacts">
+      <span>Anaheim, CA</span>
+      <a href="https://github.com/ChrisLuciano2" target="_blank">github.com/ChrisLuciano2</a>
+      <a href="mailto:christopher@luciano.com">christopher@luciano.com</a>
+      <a href="tel:7143284917">(714) 328-4917</a>
+    </div>
   </div>
 </div>
 
+<!-- ── Nav ──────────────────────────────────────── -->
 <nav>
   <a href="#about">About</a>
   <a href="#experience">Experience</a>
@@ -404,7 +427,7 @@
 
   <!-- About -->
   <section id="about">
-    <div class="sec-head"><h2>About</h2><div class="sec-line"></div></div>
+    <h2>About</h2>
     <p class="about-text">
       I'm a CS student at GCU focused on building software that works in the real world. Right now I'm
       shipping a browser-native AR app for the GCU campus and a robotics simulation that lets students
@@ -416,7 +439,7 @@
 
   <!-- Experience -->
   <section id="experience">
-    <div class="sec-head"><h2>Experience</h2><div class="sec-line"></div></div>
+    <h2>Experience</h2>
 
     <div class="card">
       <div class="card-row">
@@ -451,12 +474,11 @@
         <li>Coordinated with teaching staff on programming and kept campers safe throughout the season.</li>
       </ul>
     </div>
-
   </section>
 
   <!-- Projects -->
   <section id="projects">
-    <div class="sec-head"><h2>Projects</h2><div class="sec-line"></div></div>
+    <h2>Projects</h2>
 
     <div class="big-card">
       <h3>JETANK Robot Simulation Platform</h3>
@@ -468,12 +490,11 @@
       </p>
       <div class="proj-meta">Unity 6 &nbsp;·&nbsp; C# &nbsp;·&nbsp; Python &nbsp;·&nbsp; TCP/IP &nbsp;·&nbsp; YOLOv8 &nbsp;·&nbsp; Jetson Nano</div>
       <div class="proj-links">
-        <a href="https://github.com/ChrisLuciano2/Jetank-Simulation" target="_blank">⬡ GitHub</a>
+        <a href="https://github.com/ChrisLuciano2/Jetank-Simulation" target="_blank">↗ GitHub</a>
       </div>
     </div>
 
     <div class="projects-grid">
-
       <div class="project-card">
         <h3>Campus AR Experience</h3>
         <p>
@@ -496,16 +517,15 @@
         </p>
         <div class="proj-meta">Kotlin &nbsp;·&nbsp; Android &nbsp;·&nbsp; Canvas API &nbsp;·&nbsp; Accelerometer</div>
         <div class="proj-links">
-          <a href="https://github.com/ChrisLuciano2/TiltMaze" target="_blank">⬡ GitHub</a>
+          <a href="https://github.com/ChrisLuciano2/TiltMaze" target="_blank">↗ GitHub</a>
         </div>
       </div>
-
     </div>
   </section>
 
   <!-- Skills -->
   <section id="skills">
-    <div class="sec-head"><h2>Skills</h2><div class="sec-line"></div></div>
+    <h2>Skills</h2>
 
     <div class="skill-group">
       <div class="skill-label">Languages</div>
@@ -563,7 +583,7 @@
 
   <!-- Education -->
   <section id="education">
-    <div class="sec-head"><h2>Education</h2><div class="sec-line"></div></div>
+    <h2>Education</h2>
 
     <div class="card">
       <div class="card-row">
@@ -584,7 +604,7 @@
 
   <!-- Certifications -->
   <section id="certifications">
-    <div class="sec-head"><h2>Certifications</h2><div class="sec-line"></div></div>
+    <h2>Certifications</h2>
 
     <div class="cert-row">
       <div>
@@ -608,6 +628,175 @@
 <footer>
   <p>Chris Luciano &nbsp;·&nbsp; Anaheim, CA &nbsp;·&nbsp; <a href="mailto:christopher@luciano.com">christopher@luciano.com</a></p>
 </footer>
+
+<script>
+(function () {
+  const canvas = document.getElementById('particle-canvas');
+  const hero   = document.getElementById('hero');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Trigger text entrance
+  setTimeout(() => hero.classList.add('hero-loaded'), 60);
+
+  if (prefersReduced || !canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  const isMobile = window.innerWidth < 640;
+  const COUNT = isMobile ? 30 : 60;
+  const CONNECT_DIST = isMobile ? 0 : 100;
+  const ATTRACT_RADIUS = 130;
+  const RIPPLE_SPEED = 4;
+
+  let W, H, particles, mouse = { x: -999, y: -999 }, ripples = [];
+  let canvasAlpha = 0;       // load fade-in
+  let scrollAlpha = 1;       // scroll dissolve
+
+  function resize() {
+    W = canvas.offsetWidth;
+    H = canvas.offsetHeight;
+    canvas.width  = W;
+    canvas.height = H;
+  }
+
+  function makeParticles() {
+    return Array.from({ length: COUNT }, () => {
+      const bvx = (Math.random() - 0.5) * 0.45;
+      const bvy = (Math.random() - 0.5) * 0.45;
+      return { x: Math.random() * W, y: Math.random() * H, vx: bvx, vy: bvy, bvx, bvy };
+    });
+  }
+
+  resize();
+  particles = makeParticles();
+
+  // ── Events ──────────────────────────────────────
+  window.addEventListener('resize', () => {
+    resize();
+    particles = makeParticles();
+  }, { passive: true });
+
+  window.addEventListener('mousemove', e => {
+    const r = canvas.getBoundingClientRect();
+    mouse = { x: e.clientX - r.left, y: e.clientY - r.top };
+  }, { passive: true });
+
+  canvas.addEventListener('click', e => {
+    const r = canvas.getBoundingClientRect();
+    ripples.push({ x: e.clientX - r.left, y: e.clientY - r.top, radius: 0, maxR: 220 });
+  });
+
+  window.addEventListener('scroll', () => {
+    const heroH = hero.offsetHeight;
+    scrollAlpha = Math.max(0, 1 - window.scrollY / (heroH * 0.65));
+  }, { passive: true });
+
+  // ── Draw loop ────────────────────────────────────
+  function draw() {
+    // Load fade-in
+    canvasAlpha = Math.min(1, canvasAlpha + 0.006);
+    const alpha = canvasAlpha * scrollAlpha;
+
+    ctx.clearRect(0, 0, W, H);
+
+    // Advance + draw ripples
+    ripples = ripples.filter(r => r.radius < r.maxR);
+    ripples.forEach(r => {
+      r.radius += RIPPLE_SPEED;
+      const a = (1 - r.radius / r.maxR) * 0.35 * alpha;
+      ctx.beginPath();
+      ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(100,130,255,${a})`;
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+    });
+
+    // Update particles
+    particles.forEach(p => {
+      // Cursor attraction
+      const dx = mouse.x - p.x;
+      const dy = mouse.y - p.y;
+      const dist = Math.hypot(dx, dy);
+      if (dist < ATTRACT_RADIUS && dist > 0) {
+        const force = (1 - dist / ATTRACT_RADIUS) * 0.018;
+        p.vx += (dx / dist) * force;
+        p.vy += (dy / dist) * force;
+      }
+
+      // Ripple push
+      ripples.forEach(r => {
+        const rdx = p.x - r.x;
+        const rdy = p.y - r.y;
+        const rd  = Math.hypot(rdx, rdy);
+        if (rd > 0 && Math.abs(rd - r.radius) < 22) {
+          const push = (1 - Math.abs(rd - r.radius) / 22) * 0.9;
+          p.vx += (rdx / rd) * push;
+          p.vy += (rdy / rd) * push;
+        }
+      });
+
+      // Spring back to base velocity
+      p.vx += (p.bvx - p.vx) * 0.022;
+      p.vy += (p.bvy - p.vy) * 0.022;
+
+      // Clamp speed
+      const spd = Math.hypot(p.vx, p.vy);
+      if (spd > 2.5) { p.vx *= 2.5 / spd; p.vy *= 2.5 / spd; }
+
+      p.x += p.vx;
+      p.y += p.vy;
+
+      // Wrap edges
+      if (p.x < 0)  p.x = W;
+      if (p.x > W)  p.x = 0;
+      if (p.y < 0)  p.y = H;
+      if (p.y > H)  p.y = 0;
+
+      // Mouse proximity glow
+      const md = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+      const prox = Math.max(0, 1 - md / ATTRACT_RADIUS);
+
+      const r = Math.round(90  + prox * 80);
+      const g = Math.round(110 + prox * 50);
+      const b = Math.round(230 + prox * 25);
+      const a = (0.35 + prox * 0.65) * alpha;
+      const rad = 1.5 + prox * 2.2;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, rad, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${r},${g},${b},${a})`;
+      ctx.fill();
+    });
+
+    // Connections (desktop only)
+    if (!isMobile) {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const a = particles[i], b = particles[j];
+          const d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (d < CONNECT_DIST) {
+            const midDist = Math.hypot(
+              (a.x + b.x) / 2 - mouse.x,
+              (a.y + b.y) / 2 - mouse.y
+            );
+            const prox = Math.max(0, 1 - midDist / ATTRACT_RADIUS);
+            const lineA = (0.08 + prox * 0.32) * (1 - d / CONNECT_DIST) * alpha;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = `rgba(90,120,230,${lineA})`;
+            ctx.lineWidth = 0.7 + prox * 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+})();
+</script>
 
 </body>
 </html>
