@@ -1246,7 +1246,7 @@ function loop() { update(); render(); requestAnimationFrame(loop); }
 // ═══════════════════════════════════════════════════════════════════════════════
 
 let usingMotion = false;
-const MAX_TILT_G = 6;
+const MAX_TILT_G = 3;
 
 // Mouse tilt — fires on the whole document so you don't need to stay over the phone.
 // Tilt magnitude is based on distance from the phone center, capped at 50% of the
@@ -1262,7 +1262,7 @@ document.addEventListener('mousemove', e => {
   const ty = (e.clientY - cy) / sens;
   const ctX = Math.max(-1, Math.min(1, tx));
   const ctY = Math.max(-1, Math.min(1, ty));
-  accelX = -ctX * MAX_TILT_G;
+  accelX =  ctX * MAX_TILT_G;
   accelY =  ctY * MAX_TILT_G;
   phone.style.transform = `rotateX(${-ctY * 20}deg) rotateY(${ctX * 20}deg)`;
 });
