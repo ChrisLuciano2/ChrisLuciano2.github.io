@@ -9,6 +9,7 @@
   <meta property="og:description" content="Software engineer and CS student building AR systems, robotics simulations, and mobile apps." />
   <meta property="og:url" content="https://ChrisLuciano2.github.io" />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://ChrisLuciano2.github.io/og-image.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Figtree:wght@400;500&display=swap" rel="stylesheet">
@@ -20,8 +21,9 @@
       --border:   #1c2030;
       --border-hi:#2a3048;
       --blue:     #5a7ef8;
+      --green:    #4ade80;
       --text:     #eeeeff;
-      --muted:    #40445a;
+      --muted:    #737a9c;
       --muted2:   #7880a2;
       --fh: 'Bricolage Grotesque', system-ui, sans-serif;
       --fb: 'Figtree', system-ui, sans-serif;
@@ -39,8 +41,32 @@
       min-height: 100vh;
     }
 
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 16px;
+      z-index: 200;
+      padding: 8px 16px;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border-hi);
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: top 0.15s;
+    }
+    .skip-link:focus { top: 16px; }
+
     a { color: var(--blue); text-decoration: none; }
     a:hover { text-decoration: underline; }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+      border-radius: 3px;
+      text-decoration: none;
+    }
 
     /* ── HERO ──────────────────────────────────── */
     .hero {
@@ -85,7 +111,7 @@
       font-family: var(--fh);
       font-size: clamp(48px, 9vw, 80px);
       font-weight: 700;
-      letter-spacing: -2.5px;
+      letter-spacing: -0.035em;
       line-height: 1;
       color: var(--text);
       margin-bottom: 16px;
@@ -118,9 +144,11 @@
     .hero-contacts > * {
       color: var(--muted);
       font-size: 13px;
-      padding: 0 16px;
+      padding: 8px 16px;
       border-right: 1px solid var(--border);
       line-height: 1;
+      display: inline-flex;
+      align-items: center;
       transition: color 0.15s;
     }
 
@@ -161,6 +189,9 @@
       font-size: 13px;
       font-weight: 500;
       padding: 6px 13px;
+      min-height: 36px;
+      display: inline-flex;
+      align-items: center;
       border-radius: 5px;
       transition: color 0.15s, background 0.15s;
     }
@@ -368,7 +399,7 @@
       white-space: nowrap;
     }
 
-    .cert-badge.issued   { color: #4ade80; background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.22); }
+    .cert-badge.issued   { color: var(--green); background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.22); }
     .cert-badge.progress { color: var(--blue); background: rgba(90,126,248,0.08); border: 1px solid rgba(90,126,248,0.22); }
 
     /* ── FOOTER ────────────────────────────────── */
@@ -386,16 +417,23 @@
     /* ── RESPONSIVE ────────────────────────────── */
     @media (max-width: 640px) {
       .hero { padding: 0 24px 48px; min-height: 70vh; }
-      .hero-name { letter-spacing: -1.5px; }
+      .hero-name { letter-spacing: -0.025em; }
       main { padding: 40px 20px 80px; }
       .projects-grid { grid-template-columns: 1fr; }
       .card-row  { flex-direction: column; }
       .card-meta { text-align: left; }
-      .hero-contacts > * { padding: 0 10px; }
+      .hero-contacts > * { padding: 8px 10px; }
+    }
+
+    @media (pointer: coarse) {
+      nav a { min-height: 44px; padding: 10px 13px; }
+      .hero-contacts > * { min-height: 44px; padding: 10px 14px; }
     }
   </style>
 </head>
 <body>
+
+<a class="skip-link" href="#about">Skip to content</a>
 
 <!-- ── Hero ─────────────────────────────────────── -->
 <div class="hero" id="hero">
@@ -652,6 +690,7 @@
   let W, H, particles, mouse = { x: -999, y: -999 }, ripples = [];
   let canvasAlpha = 0;       // load fade-in
   let scrollAlpha = 1;       // scroll dissolve
+  let rafRunning = false;
 
   function resize() {
     W = canvas.offsetWidth;
@@ -689,13 +728,18 @@
 
   window.addEventListener('scroll', () => {
     const heroH = hero.offsetHeight;
+    const prev = scrollAlpha;
     scrollAlpha = Math.max(0, 1 - window.scrollY / (heroH * 0.65));
+    if (!rafRunning && scrollAlpha > 0) {
+      rafRunning = true;
+      requestAnimationFrame(draw);
+    }
   }, { passive: true });
 
   // ── Draw loop ────────────────────────────────────
   function draw() {
     // Load fade-in
-    canvasAlpha = Math.min(1, canvasAlpha + 0.006);
+    canvasAlpha = Math.min(1, canvasAlpha + 0.012);
     const alpha = canvasAlpha * scrollAlpha;
 
     ctx.clearRect(0, 0, W, H);
@@ -793,9 +837,14 @@
       }
     }
 
-    requestAnimationFrame(draw);
+    if (canvasAlpha < 1 || scrollAlpha > 0) {
+      requestAnimationFrame(draw);
+    } else {
+      rafRunning = false;
+    }
   }
 
+  rafRunning = true;
   draw();
 })();
 </script>
